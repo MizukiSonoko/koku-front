@@ -37,6 +37,7 @@ const config: Configuration = {
   */
   plugins: [
     { src: "@/plugins/web3.ts", mode: "client" },
+    { src: "@/plugins/composition-api" } // Used by vue codes
   ],
   /*
   ** Auto import components
