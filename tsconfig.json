@@ -25,7 +25,8 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/types"
+      "@nuxt/types@0.7.9+",
+      "pinia/nuxt/types"
     ]
   },
   "exclude": [
