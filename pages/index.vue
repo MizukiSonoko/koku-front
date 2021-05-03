@@ -6,31 +6,30 @@
         koku
       </h1>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  reactive,
+  SetupContext
+} from "@vue/composition-api";
 
-export default Vue.extend({})
+export default defineComponent({
+  components: {},
+  setup(_: any, _2: SetupContext) {
+    const state = reactive({});
+    onMounted(() => {});
+    return {
+      state
+    };
+  }
+});
 </script>
 
 <style>
