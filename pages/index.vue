@@ -6,7 +6,8 @@
         koku
       </h1>
       <div class="links">
-        
+        <p>I am {{ state.account.address }}!</p>
+        <p>I have {{ state.account.balance }} eth!</p>
       </div>
     </div>
   </div>
@@ -19,12 +20,18 @@ import {
   reactive,
   SetupContext
 } from "@vue/composition-api";
+import accountModule, { Account } from "@/store/modules/account"
 
 export default defineComponent({
   components: {},
   setup(_: any, _2: SetupContext) {
-    const state = reactive({});
-    onMounted(() => {});
+    const state = reactive({
+      account: new Account(null, null)
+    });
+    onMounted(() => {
+      state.account = accountModule.account
+      console.log(accountModule.web3);
+    });
     return {
       state
     };

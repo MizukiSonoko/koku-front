@@ -7,19 +7,17 @@ import {
 } from "vuex-module-decorators";
 import { initialUnencryptedStorage } from "@/globals";
 import store from "@/store/store";
+import Web3 from "web3";
 
 export class Account {
   address: string | null;
-  nonce: string | null;
-  signature: string | null;
+  balance: string | null;
   constructor(
     address: string | null,
-    nonce: string | null,
-    signature: string | null
+    balance: string | null
   ) {
     this.address = address;
-    this.nonce = nonce;
-    this.signature = signature;
+    this.balance = balance;
   }
 }
 
@@ -32,7 +30,14 @@ export class Account {
   preserveState: Boolean(initialUnencryptedStorage.user)
 })
 class AccountModule extends VuexModule {
-  public account: Account = new Account(null, null, null);
+  public web3: Web3 = new Web3();
+  public account: Account = new Account(null, null);
+
+  @Mutation
+  public updateWeb3(web3: Web3) {
+    this.web3 = web3;
+  }
+
 
   @Mutation
   public updateAccount(account: Account) {

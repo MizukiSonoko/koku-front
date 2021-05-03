@@ -1,4 +1,5 @@
 import Web3 from "web3";
+import accountModule, { Account } from "@/store/modules/account"
 
 declare global {
   interface Window {
@@ -32,6 +33,8 @@ export default ({ ctx }: any) => {
             .toLocaleString()
         };
         console.log(data);
+        accountModule.updateAccount(new Account(data.account, data.balance));
+        accountModule.updateWeb3(instance);
       });
     } else if (window.ethereum) {
       console.log("utils", window.$web3.eth);
@@ -45,6 +48,8 @@ export default ({ ctx }: any) => {
               .toLocaleString()
           };
           console.log(data);
+          accountModule.updateAccount(new Account(data.account, data.balance));
+          accountModule.updateWeb3(instance);
         });
       });
     }
