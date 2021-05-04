@@ -21,6 +21,8 @@ import {
   SetupContext
 } from "@vue/composition-api";
 import accountModule, { Account } from "@/store/modules/account"
+import * as zksync from "zksync";
+import * as ethers from "ethers";
 
 export default defineComponent({
   components: {},
@@ -28,10 +30,29 @@ export default defineComponent({
     const state = reactive({
       account: new Account(null, null)
     });
-    onMounted(() => {
+    onMounted(async () => {
       state.account = accountModule.account
       console.log(accountModule.web3);
+      const syncProvider = await zksync.getDefaultProvider("rinkeby");
+      const ethersProvider = ethers.getDefaultProvider("rinkeby");
+      console.log("syncProvider", syncProvider)
+      console.log("ethersProvider", ethersProvider)
+      syncProvider
+      const contractAddresses = await syncProvider.getTokens();
+      console.log("contractAddresses", contractAddresses)
+      const tokens =  await syncProvider.getTokens();
+      console.log("tokens", tokens)
+      console.log(state.account.address)
+      if(state.account.address != null) {
+        const account = await syncProvider.getState(state.account.address)
+        console.log("account", account)
+       
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        console.log("signer", signer)
+      }
     });
+    
     return {
       state
     };

@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   strict: false,
   plugins: [
+    /*
     createPersistedState({
       storage: {
         getItem: key => secureStorage.get(key),
@@ -15,5 +16,6 @@ export default new Vuex.Store({
         removeItem: key => secureStorage.remove(key)
       }
     })
+    */
   ]
 });

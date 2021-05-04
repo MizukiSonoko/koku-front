@@ -44,11 +44,6 @@ class AccountModule extends VuexModule {
     this.account = account;
   }
 
-  @Action({ rawError: true })
-  public login(params: { teamId: String; callback: Function }) {
-    // eslint-disable-next-line no-console
-    console.log(params);
-  }
 }
 
 export default getModule(AccountModule);
