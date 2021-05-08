@@ -36,7 +36,6 @@ const config: Configuration = {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: "@/plugins/web3.ts", mode: "client" },
     { src: "@/plugins/composition-api" } // Used by vue codes
   ],
   /*
