@@ -6,6 +6,7 @@
         koku
       </h1>
       <div class="links">
+        <button class="bg-gray-200 rounded p-3" @click="login">LOGIN</button>
         <p>I am {{ state.account.address }}!</p>
         <p>I have {{ state.account.balance }} eth!</p>
       </div>
@@ -21,40 +22,30 @@ import {
   SetupContext
 } from "@vue/composition-api";
 import accountModule, { Account } from "@/store/modules/account"
-import * as zksync from "zksync";
-import * as ethers from "ethers";
+import { zkSyncClient } from "@/service/zkSyncClient"
+import { Web3Service } from "@/service/web3"
 
 export default defineComponent({
   components: {},
   setup(_: any, _2: SetupContext) {
+    const web3Service = new Web3Service();
     const state = reactive({
       account: new Account(null, null)
     });
     onMounted(async () => {
-      state.account = accountModule.account
-      console.log(accountModule.web3);
-      const syncProvider = await zksync.getDefaultProvider("rinkeby");
-      const ethersProvider = ethers.getDefaultProvider("rinkeby");
-      console.log("syncProvider", syncProvider)
-      console.log("ethersProvider", ethersProvider)
-      syncProvider
-      const contractAddresses = await syncProvider.getTokens();
-      console.log("contractAddresses", contractAddresses)
-      const tokens =  await syncProvider.getTokens();
-      console.log("tokens", tokens)
-      console.log(state.account.address)
-      if(state.account.address != null) {
-        const account = await syncProvider.getState(state.account.address)
-        console.log("account", account)
-       
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = provider.getSigner()
-        console.log("signer", signer)
-      }
+      web3Service.init(() => {
+        state.account = accountModule.account;
+      });
     });
-    
+    const login = () => {
+      console.log("login")
+      web3Service.connectWallet(() => {
+        state.account = accountModule.account;
+      });
+    }
     return {
-      state
+      state,
+      login
     };
   }
 });
